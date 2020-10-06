@@ -4,6 +4,7 @@ Sudoku solver and generator
 '''
 import numpy as np
 import random as rnd
+import copy
 
 def sdku_gen():
     while True:
