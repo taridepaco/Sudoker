@@ -1,0 +1,155 @@
+body {
+    font-family: 'Titillium Web', sans-serif;
+    /* min-width:200px;        Suppose you want minimum width of 1000px */
+    /* width: auto !important; 
+    width:1000px;   */
+  }
+  .container{
+    min-width:200px;   
+  }
+  .row [class*='col-']:not(.hid) {
+    background-clip: content-box;
+    min-height: 20px;
+  }
+  .navbar-brand {
+    font-size: 30px;
+    color: rgb(150, 48, 90);/* #000;*/
+    font-weight: bold;
+  }
+  .nav-item {
+    font-size: 25px;
+    color: rgb(150, 48, 90); /*#000;*/
+    font-weight: bold;   
+  }
+  #header {
+    margin-top: 0px;
+    /* background: url(../img/frontpic.jpg);
+    background-repeat: no-repeat;
+    background-size: auto; */
+    height: 500px;
+  }
+  .parallax-window {
+    min-height: 500px;
+    background: transparent;
+    transform: translate(0px, 90px)
+    /* min-width:1000px;    */
+    /* filter: grayscale(100%); */
+  }
+  .transparent {
+    opacity: 0%;
+  }
+  .profile-pic {
+    border-radius: 50%;
+    border: 8px solid rgb(201, 126, 40);
+    /* display: block; */
+    margin-left: auto;
+    margin-bottom: auto;
+    /* transform: translate(0px, 0px); */
+  }
+  .header-name{
+    margin-left: auto;
+    margin-bottom: auto;
+    /* transform: translate(10px, 10px); */
+    /* background: rgb(129, 126, 78); */
+    /* opacity: 0%; */
+  }
+  .cv_but{
+    text-align: left;
+    transform: translate(0px, 10px);
+  }
+  /* Style buttons */
+  .btn {
+    background-color:  rgb(150, 48, 90);
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color:  rgb(83, 27, 50);
+  }
+  .text_right{
+    text-align: right;
+  }
+  .padding_1{
+    padding: 2%;
+    background-color: rgba(150, 48, 90, 0.63);
+    border-radius: 20px 20px 20px 20px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+  .padding_2{
+    color: white;
+    padding: 0.5%;
+    background-color: rgb(150, 48, 90);
+    border-radius: 10px 10px 10px 10px;
+    width: 100%;
+    height: 10%;
+    text-align: justify;
+  }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    position: absolute;
+    top: -30px;
+    /* height: 410px; */
+    width: 100px;
+    background-size: 100%, 100%;
+    background-image: none;
+  }
+  .carousel-control-next-icon:after
+  {
+    content: '>';
+    font-size: 55px;
+    color:  rgb(83, 27, 50);
+  }
+  .carousel-control-prev-icon:after {
+    content: '<';
+    font-size: 55px;
+    color:  rgb(83, 27, 50);
+  }
+  .box_1{
+    min-height: 365px;
+  }
+  .text-ocre{
+    color: rgb(201, 126, 40);
+    font-weight: bolder;
+  }
+  .header-name{
+    background-color: rgba(0, 0, 0, 0.5);
+    /* position: absolute; */
+    /* line-height:100%; */
+    /* text-align: center; */
+    /* max-width: 6000px; */
+    bottom: 30px;
+    /* padding: 0px;        */
+
+  }
+  wc1{
+    font-size: 55px;
+    color:  rgb(173, 80, 119);
+    font-weight: bold;
+  }
+  wc2{
+    font-size: 40px;
+    color:  rgb(121, 39, 73);
+    font-weight: bold;
+  }
+  wc3{
+    font-size: 30px;
+    color:  rgb(83, 27, 50);
+  }
+  wc4{
+    font-size: 25px;
+  }
+  #testimonial {
+    background: #f1f1f1;
+    padding: 50px 0 30px 0;
+    text-align:center;
+    margin-top: 40px;
+  }
+  #content{
+      margin-top: 71px;
+  }
