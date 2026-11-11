@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { conflicts, countFilled, parse, serialize } from '../../docs/js/engine/grid.js';
-import { solve } from '../../docs/js/engine/search.js';
-import { logicSolve, nextMove, solveSteps } from '../../docs/js/engine/techniques.js';
-import { generate, LEVELS, mulberry32 } from '../../docs/js/engine/generator.js';
+import { conflicts, countFilled, parse, serialize } from '../../web/js/engine/grid.js';
+import { solve } from '../../web/js/engine/search.js';
+import { logicSolve, nextMove, solveSteps } from '../../web/js/engine/techniques.js';
+import { generate, LEVELS, mulberry32 } from '../../web/js/engine/generator.js';
 
 // The puzzle saved by the original Python script (22 givens, unique solution).
 const LEGACY = '1........'

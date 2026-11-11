@@ -8,7 +8,7 @@
 
 ## 1. Objetivo y alcance
 
-Web app estática, publicada con GitHub Pages desde la carpeta `docs/`, que permite:
+Web app estática, publicada con GitHub Pages desde la carpeta `web/`, que permite:
 
 1. **Jugar** sudokus generados por la propia página o introducidos por el usuario. El jugador toma notas a mano, como en papel, y puede pedir pistas que se vuelven más obvias cada vez que las pide.
 2. **Resolver** sudokus, tanto los propuestos por la página como los introducidos a mano. Se puede pedir el siguiente número, con su explicación, o la solución completa.
@@ -306,7 +306,7 @@ Está escrito en JavaScript, para que funcione en GitHub Pages, y parte de las i
 
 ## 8. Requisitos no funcionales
 
-- **N-01** · MVP · Sitio 100 % estático, sin paso de compilación (módulos ES). Se publica desde `docs/` en GitHub Pages.
+- **N-01** · MVP · Sitio 100 % estático (módulos ES) en `web/`. `deploy/build.sh` lo copia a `dist/` con las URLs versionadas, y `.github/workflows/pages.yml` lo publica en GitHub Pages con cada push a `main`, como el resto de webs de taridepaco (ver `DEPLOY.md`).
 - **N-02** · MVP · Se puede usar en móvil y tablet (táctil, con barra numérica) y en escritorio (teclado).
 - **N-03** · MVP · El motor no tiene dependencias externas. Se prueba con `node --test`.
 - **N-04** · MVP · Accesibilidad básica: todo se puede hacer con teclado, con etiquetas `aria` en el tablero y los botones.
@@ -363,7 +363,7 @@ Se corrigen en el motor JS; el script se deja como está.
 ## 11. Arquitectura propuesta (orientativa)
 
 ```
-docs/                    ← raíz publicada en GitHub Pages
+web/                     ← la web; deploy/build.sh la construye en dist/
   index.html
   css/
   js/
