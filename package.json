@@ -2,8 +2,8 @@
   "name": "sudoker",
   "private": true,
   "type": "module",
-  "description": "Sudoku generator, solver and play table. Static site in docs/.",
+  "description": "Sudoku generator, solver and play table. Static site in web/.",
   "scripts": {
-    "test": "node --test \"tests/**/*.test.js\""
+    "test": "bash deploy/test.sh"
   }
 }
