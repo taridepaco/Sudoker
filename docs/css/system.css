@@ -1,0 +1,172 @@
+/* taridepaco · sistema común
+   Tokens y piezas compartidas por la landing y las páginas de proyecto.
+   Para usarlo en otro repositorio: copia este archivo y enlázalo junto a las fuentes:
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Martian+Mono:wght@500;700&display=swap">
+   Tema: claro por defecto, oscuro si el sistema lo pide; data-theme="light|dark" en <html> manda sobre
+   el sistema (lo gestiona js/theme.js).
+   Reglas de la casa: esquinas cuadradas, bordes gruesos, sombras duras sin desenfoque. */
+:root {
+  --bg: #bfe3d6;
+  --surface: #f7f2d6;
+  --ink: #1f2a33;
+  --muted: #48595f;
+  --accent: #d9442e;
+  --accent-ink: #fff8e6;
+  --second: #f2b63d;
+  --on-second: #1f2a33;
+  --line: #1f2a33;
+  --shade: #1f2a33;
+
+  --f-display: "Martian Mono", "Consolas", "Courier New", monospace;
+  --f-body: "Atkinson Hyperlegible", "Verdana", sans-serif;
+  --f-util: "Martian Mono", "Consolas", "Courier New", monospace;
+
+  --bw: 3px;
+  --shadow: 5px 5px 0 var(--shade);
+  --h1: clamp(1.55rem, 4.6vw, 2.6rem);
+  --h2: 1.3rem;
+  --body: 1.02rem;
+  --util: .7rem;
+  color-scheme: light;
+}
+
+/* paleta oscura: los dos bloques deben llevar los mismos valores */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12222b;
+    --surface: #1d343e;
+    --ink: #f1ead0;
+    --muted: #a3b8b3;
+    --accent: #f0694a;
+    --accent-ink: #14202a;
+    --second: #f2b63d;
+    --on-second: #14202a;
+    --line: #f1ead0;
+    --shade: #050b0f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12222b;
+  --surface: #1d343e;
+  --ink: #f1ead0;
+  --muted: #a3b8b3;
+  --accent: #f0694a;
+  --accent-ink: #14202a;
+  --second: #f2b63d;
+  --on-second: #14202a;
+  --line: #f1ead0;
+  --shade: #050b0f;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: var(--body);
+  line-height: 1.55;
+}
+h1, h2, h3 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.03em;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); }
+h3 { font-size: 1.05em; }
+p { margin: 0; max-width: 62ch; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* etiqueta pequeña en mayúsculas */
+.util {
+  font-family: var(--f-util);
+  font-weight: 500;
+  font-size: var(--util);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.muted { color: var(--muted); }
+
+/* caja */
+.card {
+  border: var(--bw) solid var(--line);
+  box-shadow: var(--shadow);
+  background: var(--surface);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+.tag {
+  font-family: var(--f-util);
+  font-weight: 500;
+  font-size: var(--util);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  border: var(--bw) solid var(--line);
+  padding: 2px 7px;
+  background: var(--second);
+  color: var(--on-second);
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: .82em;
+  text-decoration: none;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: var(--bw) solid var(--line);
+  box-shadow: var(--shadow);
+  padding: 8px 16px;
+}
+.btn.ghost { background: var(--surface); color: var(--ink); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--shade); }
+.btn[disabled] { opacity: .6; cursor: default; }
+
+/* botón pequeño conmutable: selector de idioma, filtros, leyendas */
+.chip, .lang-switch button {
+  font-family: var(--f-util);
+  font-weight: 500;
+  font-size: var(--util);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  background: var(--surface);
+  border: var(--bw) solid var(--line);
+  padding: 7px 10px;
+  min-height: 36px;
+}
+.chip[aria-pressed="true"], .lang-switch button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.lang-switch { display: flex; }
+.lang-switch button + button { border-left: 0; }
+
+/* formularios */
+label { display: flex; flex-direction: column; gap: 4px; }
+input, textarea {
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg);
+  border: var(--bw) solid var(--line);
+  border-radius: 0;
+  padding: 9px 10px;
+  width: 100%;
+}
+textarea { min-height: 120px; resize: vertical; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:active { transform: none; }
+}
