@@ -88,17 +88,38 @@ notesPanel.className = 'notes-panel';
 notesPanel.append(disStrip, posStrip);
 padEl.append(numStrip, notesPanel);
 
+// desktop: how many of each digit are on the board, on the other side from the notes
+const counterEl = $('counter');
+const counts = [];
+for (let g = 0; g < 3; g++) {
+  const grp = document.createElement('div');
+  grp.className = 'grp';
+  for (let k = 0; k < 3; k++) { const s = document.createElement('span'); counts.push(s); grp.append(s); }
+  counterEl.append(grp);
+}
+
+// phone in portrait: the board fills the frame, and notes and messages open over it
+const phone = matchMedia('(max-width: 720px) and (orientation: portrait)');
+
 // board size: cells of a whole number of pixels, board + pad fitted in the stage
 function layout() {
   const portrait = getComputedStyle(stage).flexDirection === 'column';
-  const w = stage.clientWidth - 16, h = stage.clientHeight - 16;
-  const c = portrait
+  let w = stage.clientWidth - 16, h = stage.clientHeight - 16;
+  let c = portrait
     ? Math.min((w - 18) / 9, (h - 18 - 8 - 6) / 10)
     : Math.min((w - 18 - 8 - 15) / 11, (h - 18) / 9);
+  const fine = !matchMedia('(pointer: coarse)').matches;
+  // desktop in landscape: the digit counter (1.4c + 6 wide) takes the left side
+  if (!portrait && fine) c = Math.min((w - 18 - 8 - 15 - 8 - 6) / 12.4, (h - 18) / 9);
+  if (phone.matches) {
+    // no padding: the board and the number bar overlap the frame's borders (10c + 18 tall, 9c + 12 wide)
+    w = stage.clientWidth; h = stage.clientHeight;
+    c = Math.min((w - 12) / 9, (h - 18) / 10);
+  }
   const cell = Math.max(14, Math.floor(c));
   stage.style.setProperty('--c', cell + 'px');
   // with room to spare, the board is centred and the pad hangs to its right
-  stage.classList.toggle('centered', !portrait && (w - 9 * cell - 18) / 2 >= 2 * cell + 23);
+  stage.classList.toggle('centered', !portrait && !fine && (w - 9 * cell - 18) / 2 >= 2 * cell + 23);
 }
 new ResizeObserver(layout).observe(stage);
 
@@ -544,6 +565,23 @@ function render() {
   const notesOpen = play && U.notes && canNote(sel);
   numStrip.classList.toggle('off', notesOpen || !(coarse || S.opts.pad) || (play && U.paused));
   notesPanel.hidden = !notesOpen;
+  // phone: notes open over the half of the board away from the cell (rows 1-5 below, 6-9 above)
+  notesPanel.classList.toggle('at-top', ROW[sel] >= 5);
+  document.querySelector('.screen').classList.toggle('notes-open', notesOpen);
+  // the message goes to the other half from the cell the hint or step points at
+  let ref = -1;
+  if (play && U.hint && U.hint.move.placement) {
+    const p = U.hint.move.placement;
+    if (U.hint.level >= 3) ref = ROW[p.cell];
+    else if (U.hint.level === 2 && p.unit < 9) ref = p.unit;
+    else if (U.hint.level === 2 && p.unit >= 18) ref = Math.floor((p.unit - 18) / 3) * 3 + 1;
+  }
+  if (!play && U.stepView) ref = ROW[U.stepView.placement.cell];
+  msgEl.classList.toggle('at-top', ref >= 5);
+  // digit counter
+  const tally = new Array(10).fill(0);
+  for (const d of g) tally[d]++;
+  counts.forEach((s, k) => { s.textContent = `${k + 1}: ${tally[k + 1]}`; s.classList.toggle('full', tally[k + 1] >= 9); });
   if (notesOpen) {
     for (const b of disStrip.querySelectorAll('button')) b.setAttribute('aria-pressed', String(!!(P.dis[sel] & bit(+b.dataset.d))));
     for (const b of posStrip.querySelectorAll('button')) b.setAttribute('aria-pressed', String(!!(P.pos[sel] & bit(+b.dataset.d))));
@@ -607,7 +645,11 @@ padEl.addEventListener('click', (e) => {
 });
 // the notes panel closes when tapping anywhere outside it (a tap on a cell is handled by the board)
 document.addEventListener('pointerdown', (e) => {
-  if (U.notes && !e.target.closest('.notes-panel, .cell')) { U.notes = false; render(); }
+  let changed = false;
+  if (U.notes && !e.target.closest('.notes-panel, .cell')) { U.notes = false; changed = true; }
+  // on a phone the message covers part of the screen: touching the board or the numbers hides it
+  if (U.msg && phone.matches && e.target.closest('.board, .pad')) { U.msg = null; changed = true; }
+  if (changed) render();
 });
 // give the keyboard back to the board after using a button
 document.addEventListener('click', (e) => {

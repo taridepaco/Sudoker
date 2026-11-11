@@ -100,7 +100,8 @@ Web app estática, publicada con GitHub Pages desde la carpeta `docs/`, que perm
   - **Posibles:** números en **gris claro**. Al pulsar uno se oscurece a **azul**; al volver a pulsarlo vuelve a gris.
 - **J-22** · MVP · Un número no puede ser posible y descartado a la vez en la misma celda: marcarlo en una fila lo desmarca en la otra.
 - **J-23** · MVP · **Posición del panel:**
-  - En táctil ocupa el lugar de la barra numérica mientras está abierto.
+  - En móvil en vertical se abre encima del tablero, en la mitad contraria a la celda: abajo (sobre la barra numérica y la fila 9) si la celda está en las filas 1–5, y arriba (sobre las filas 1–2) si está en las filas 6–9.
+  - En táctil en horizontal ocupa el lugar de la barra numérica mientras está abierto.
   - En escritorio aparece junto al tablero.
 - **J-24** · MVP · **Cierre del panel:**
   - Se cierra al pulsar fuera de sus dos filas o columnas.
@@ -149,6 +150,8 @@ Web app estática, publicada con GitHub Pages desde la carpeta `docs/`, que perm
 - **J-50** · MVP · Al seleccionar una celda se resaltan su fila, su columna y su caja.
 - **J-51** · MVP · Al seleccionar una celda con número, se resaltan las demás celdas con ese mismo número.
 - **J-52** · MVP · Ambos resaltados están activados por defecto y se pueden desactivar en Opciones.
+- **J-53** · MVP · **Contador de números** (solo en escritorio): una columna al otro lado del tablero respecto a las notas con cuántas veces está cada número (`4: 9`). Cuando están los nueve, el número y la cuenta se tachan. En móvil no se muestra.
+- **J-54** · MVP · **Móvil en vertical:** el tablero ocupa todo el ancho del marco. Los mensajes se abren encima, en la mitad contraria a la celda de la pista, y se ocultan al tocar el tablero o la barra numérica.
 
 ### 4.7 Control de partida
 

@@ -355,6 +355,48 @@ kbd {
 
 @media (orientation: landscape) { .stage.centered .pad { margin-right: calc(-2 * var(--c) - 23px); } }
 
+/* contador de cada número: solo en el ordenador, al otro lado de las notas */
+.counter { display: none; }
+@media (pointer: fine) and (orientation: landscape) {
+  .counter { display: grid; grid-template-rows: repeat(3, auto); align-self: center; }
+  .counter .grp { display: grid; grid-template-rows: repeat(3, var(--c)); grid-auto-columns: calc(var(--c) * 1.4); }
+  .counter span {
+    display: grid;
+    place-items: center;
+    background: var(--surface);
+    font-family: var(--f-util);
+    font-weight: 700;
+    font-size: max(11px, calc(var(--c) * .28));
+    font-variant-numeric: tabular-nums;
+  }
+  .counter span.full { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 3px; }
+}
+
+/* móvil en vertical: el tablero llena el marco; notas y mensajes se abren encima */
+@media (max-width: 720px) and (orientation: portrait) {
+  .stage { padding: 0; gap: 0; justify-content: flex-start; }
+  .board { margin-top: -3px; }
+  .pad { margin-top: -3px; }
+  .notes-panel { top: auto; bottom: 0; }
+  .notes-panel.at-top { top: calc(-9 * var(--c) - 15px); bottom: auto; }
+  .screen.notes-open .msg { display: none; }
+  .msg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 33px;
+    z-index: 4;
+    height: auto;
+    max-height: 45%;
+    padding: 8px 12px;
+    background: var(--surface);
+    border-top: var(--bw) solid var(--line);
+    border-bottom: var(--bw) solid var(--line);
+  }
+  .msg.at-top { top: 0; bottom: auto; border-top: 0; }
+  .msg:empty { display: none; }
+}
+
 /* pantallas bajas (móvil en horizontal): mensajes y estado a la derecha del tablero */
 @media (orientation: landscape) and (max-height: 500px) {
   .screen { display: grid; grid-template-columns: minmax(0, 1fr) minmax(150px, 34%); grid-template-rows: minmax(0, 1fr) auto; }
