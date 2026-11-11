@@ -27,6 +27,8 @@ body[data-mode="play"] [data-mode="solve"], body[data-mode="solve"] [data-mode="
 }
 .topbar .back { text-underline-offset: 4px; }
 .topbar h1 { font-size: 1.25rem; }
+/* el título lleva al repositorio: mismo aspecto, cursor de mano */
+.topbar h1 a { text-decoration: none; cursor: pointer; }
 .topbar .tag { margin-right: auto; }
 
 .app { flex: 1; min-height: 0; display: flex; }
