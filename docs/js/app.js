@@ -40,6 +40,8 @@ const U = {
 
 const playGrid = () => S.play.puzzle.map((d, i) => d || S.play.values[i]);
 const solveGrid = () => S.solve.given.map((d, i) => d || S.solve.deduced[i]);
+// with a mouse (desktop), selecting an empty cell opens its notes straight away
+const finePointer = () => !matchMedia('(pointer: coarse)').matches;
 const canNote = (i) => S.mode === 'play' && S.play && !S.play.done && !S.play.puzzle[i] && !S.play.values[i];
 
 // ---------- DOM ----------
@@ -242,7 +244,6 @@ function input(d) {
   }
   const P = S.play;
   if (!P || P.done || U.paused || P.puzzle[i]) return;
-  if (U.notes) return toggleNote('pos', d);
   change(i, { v: d });
 }
 function erase() {
@@ -594,7 +595,7 @@ boardEl.addEventListener('click', (e) => {
   if (!c || (S.mode === 'play' && U.paused)) return;
   const i = +c.dataset.i;
   if (i === U.sel && canNote(i)) U.notes = !U.notes;
-  else { U.sel = i; U.notes = false; }
+  else { U.sel = i; U.notes = finePointer() && canNote(i); }
   render();
 });
 padEl.addEventListener('click', (e) => {
@@ -623,22 +624,23 @@ document.addEventListener('keydown', (e) => {
     if (k === 'y' || k === 'Y') { e.preventDefault(); return redo(); }
     return;
   }
-  if (e.altKey) return;
   const m = /^(?:Digit|Numpad)([1-9])$/.exec(e.code);
   if (m) {
     e.preventDefault();
     const d = +m[1];
-    if (U.notes && canNote(U.sel)) toggleNote(e.shiftKey ? 'dis' : 'pos', d);
-    else if (!e.shiftKey) input(d);
+    // 1-9 writes the number; Shift marks a possible digit, Alt rules one out
+    if (e.shiftKey || e.altKey) { if (canNote(U.sel)) toggleNote(e.altKey ? 'dis' : 'pos', d); }
+    else input(d);
     return;
   }
+  if (e.altKey) return;
   const moves = { ArrowUp: -9, ArrowDown: 9, ArrowLeft: -1, ArrowRight: 1 };
   if (k in moves) {
     e.preventDefault();
     const i = U.sel, dlt = moves[k];
     if ((dlt === -1 && COL[i] === 0) || (dlt === 1 && COL[i] === 8) || i + dlt < 0 || i + dlt > 80) return;
     U.sel = i + dlt;
-    U.notes = false;
+    U.notes = finePointer() && canNote(U.sel);
     render();
     cells[U.sel].focus({ preventScroll: true });
     return;

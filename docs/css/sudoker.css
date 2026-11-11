@@ -203,8 +203,10 @@ kbd {
 .msg .row { gap: 8px; margin-top: 6px; }
 .msg .chip.primary { background: var(--accent); color: var(--accent-ink); }
 
+/* altura fija: no cambia al pasar a Resolver, donde no hay cronómetro */
 .status {
   flex: none;
+  height: 33px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -220,7 +222,7 @@ kbd {
 #status-text { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .timer {
   flex: none;
-  min-height: 30px;
+  align-self: stretch;
   padding: 4px 10px;
   border: 0;
   border-left: var(--bw) solid var(--line);

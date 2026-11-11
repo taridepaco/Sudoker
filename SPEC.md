@@ -91,8 +91,10 @@ Web app estática, publicada con GitHub Pages desde la carpeta `docs/`, que perm
 
 > Primera versión para probar; se iterará después de usarla.
 
-- **J-20** · MVP · Las notas de una celda se abren **al volver a pulsar la celda que ya estaba seleccionada**, tanto en móvil como en escritorio. No existe un "modo notas".
-  - Con teclado, `Intro` abre las notas de la celda seleccionada.
+- **J-20** · MVP · No existe un "modo notas".
+  - **Táctil:** las notas de una celda se abren al volver a pulsar la celda que ya estaba seleccionada.
+  - **Escritorio (ratón):** se abren directamente al seleccionar una celda vacía.
+  - Volver a pulsar la celda seleccionada, o `Intro`, abre o cierra las notas.
 - **J-21** · MVP · **Panel de notas**: dos filas (o columnas, según la orientación) con los números del 1 al 9.
   - **Descartes:** números en **rojo**. Al pulsar uno se tacha; al volver a pulsarlo se quita el tachado.
   - **Posibles:** números en **gris claro**. Al pulsar uno se oscurece a **azul**; al volver a pulsarlo vuelve a gris.
@@ -104,9 +106,10 @@ Web app estática, publicada con GitHub Pages desde la carpeta `docs/`, que perm
   - Se cierra al pulsar fuera de sus dos filas o columnas.
   - Si se pulsa otra celda, además queda seleccionada.
   - En escritorio también se cierra con `Esc`.
-- **J-25** · MVP · Con teclado y el panel abierto:
-  - `1`–`9` marca o desmarca un **posible**;
-  - `Mayús` + `1`–`9` marca o desmarca un **descarte**.
+- **J-25** · MVP · Con teclado, en una celda vacía:
+  - `1`–`9` escribe el número, aunque las notas estén abiertas;
+  - `Mayús` + `1`–`9` marca o desmarca un **posible**;
+  - `Alt` + `1`–`9` marca o desmarca un **descarte**.
 - **J-26** · MVP · **Dentro de la celda** se ven en pequeño solo los **posibles**, en una subcuadrícula de 3×3.
   - Cada número ocupa siempre su posición: el 1 arriba a la izquierda y el 9 abajo a la derecha.
   - Los descartes solo se ven en el panel.
