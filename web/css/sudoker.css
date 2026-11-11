@@ -335,6 +335,7 @@ kbd {
 }
 .strip button:active { background: var(--bg); }
 .strip.num.off { visibility: hidden; }
+.notes-head { display: none; }
 .notes-panel {
   position: absolute;
   top: 0;
@@ -378,15 +379,31 @@ kbd {
 @media (max-width: 720px) and (orientation: portrait) {
   .stage { padding: 0; gap: 0; justify-content: flex-start; }
   .board { margin-top: -3px; }
-  .pad { margin-top: -3px; }
-  .notes-panel { top: auto; bottom: 0; }
-  .notes-panel.at-top { top: calc(-9 * var(--c) - 15px); bottom: auto; }
+  .status { display: none; }   /* sin pie: el tablero gana el sitio; el tiempo sale en el resumen final */
+  .pad { margin-top: 6px; }     /* aire entre la última fila y la barra de números */
+  /* notas: un cajón amarillo con cabecera, encima del tablero y con sombra dura hacia él */
+  .notes-panel {
+    top: auto;
+    bottom: 0;
+    gap: 6px;
+    padding: 0 0 6px;
+    background: var(--second);
+    border-block: var(--bw) solid var(--line);
+    box-shadow: 0 -6px 0 var(--shade);
+  }
+  .notes-panel.at-top { top: calc(-9 * var(--c) - 21px); bottom: auto; box-shadow: 0 6px 0 var(--shade); }
+  .notes-head {
+    display: block;
+    padding: 5px 12px 0;
+    color: var(--on-second);
+    text-align: center;
+  }
   .screen.notes-open .msg { display: none; }
   .msg {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 33px;
+    bottom: 0;
     z-index: 4;
     height: auto;
     max-height: 45%;

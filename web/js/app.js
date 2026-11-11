@@ -85,7 +85,9 @@ function strip(kind) {
 const numStrip = strip('num'), disStrip = strip('dis'), posStrip = strip('pos');
 const notesPanel = document.createElement('div');
 notesPanel.className = 'notes-panel';
-notesPanel.append(disStrip, posStrip);
+const notesHead = document.createElement('div');
+notesHead.className = 'notes-head util';
+notesPanel.append(notesHead, disStrip, posStrip);
 padEl.append(numStrip, notesPanel);
 
 // desktop: how many of each digit are on the board, on the other side from the notes
@@ -112,9 +114,10 @@ function layout() {
   // desktop in landscape: the digit counter (1.4c + 6 wide) takes the left side
   if (!portrait && fine) c = Math.min((w - 18 - 8 - 15 - 8 - 6) / 12.4, (h - 18) / 9);
   if (phone.matches) {
-    // no padding: the board and the number bar overlap the frame's borders (10c + 18 tall, 9c + 12 wide)
+    // no padding: the board overlaps the frame's borders; 6px between the board and the number bar
+    // (10c + 27 tall, 9c + 12 wide)
     w = stage.clientWidth; h = stage.clientHeight;
-    c = Math.min((w - 12) / 9, (h - 18) / 10);
+    c = Math.min((w - 12) / 9, (h - 27) / 10);
   }
   const cell = Math.max(14, Math.floor(c));
   stage.style.setProperty('--c', cell + 'px');
@@ -565,6 +568,7 @@ function render() {
   const notesOpen = play && U.notes && canNote(sel);
   numStrip.classList.toggle('off', notesOpen || !(coarse || S.opts.pad) || (play && U.paused));
   notesPanel.hidden = !notesOpen;
+  notesHead.textContent = t('notes.title', { cell: cellName(sel) });
   // phone: notes open over the half of the board away from the cell (rows 1-5 below, 6-9 above)
   notesPanel.classList.toggle('at-top', ROW[sel] >= 5);
   document.querySelector('.screen').classList.toggle('notes-open', notesOpen);
