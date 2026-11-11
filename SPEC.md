@@ -1,7 +1,7 @@
 # Sudoker — Especificación funcional
 
-> **Estado:** borrador revisado (2026-11-11).
-> El diseño visual queda fuera de este documento: se define en un artefacto aparte.
+> **Estado:** aprobado para implementar (2026-11-11).
+> El diseño visual sigue el sistema común de diseño de taridepaco (N-06).
 > Cada requisito lleva un ID y una prioridad: **MVP**, **v2** u **Opcional**.
 
 ---
@@ -17,7 +17,7 @@ Web app estática, publicada con GitHub Pages desde la carpeta `docs/`, que perm
 - Cuentas de usuario y servidor.
 - Multijugador.
 - Variantes de sudoku (killer, diagonal…).
-- Diseño visual (se define en el artefacto de diseño).
+- Diseño visual propio: se usa el sistema común de diseño (N-06).
 
 **Fuera de esta versión:**
 - Nivel Experto.
@@ -100,7 +100,6 @@ Web app estática, publicada con GitHub Pages desde la carpeta `docs/`, que perm
 - **J-23** · MVP · **Posición del panel:**
   - En táctil ocupa el lugar de la barra numérica mientras está abierto.
   - En escritorio aparece junto al tablero.
-  - El diseño concreto lo marca el artefacto de diseño.
 - **J-24** · MVP · **Cierre del panel:**
   - Se cierra al pulsar fuera de sus dos filas o columnas.
   - Si se pulsa otra celda, además queda seleccionada.
@@ -265,14 +264,6 @@ Está escrito en JavaScript, para que funcione en GitHub Pages, y parte de las i
   - Con los tiempos medidos no hace falta (ver tabla de abajo).
   - Se activa solo si en móviles reales la generación resulta lenta.
   - En ese caso, propongo generarlo al empezar la partida en lugar de cerca del final: es más sencillo y siempre está listo.
-- **G-08** · Opcional · **Simetría rotacional:**
-  - El dibujo que forman los números iniciales se ve igual si se gira el tablero media vuelta (180°). Por ejemplo, si `f1c2` tiene número, `f9c8` también; y si `f3c4` está vacía, `f7c6` también.
-  - Es solo estético; es el estilo clásico de los sudokus de periódico.
-  - Se implementa vaciando las celdas por parejas.
-  - Coste medido:
-    - ~3 números iniciales más de media (27,7 frente a 24,4);
-    - la mitad de sudokus llegan a Difícil (14 % frente a 29 %), así que tarda el doble en ese nivel, aunque sigue por debajo de 0,1 s.
-
 **Medidas del prototipo** (JavaScript en Node, en una sola máquina; el motor definitivo puede variar):
 
 | Paso | Tiempo |
@@ -313,8 +304,13 @@ Está escrito en JavaScript, para que funcione en GitHub Pages, y parte de las i
 - **N-02** · MVP · Se puede usar en móvil y tablet (táctil, con barra numérica) y en escritorio (teclado).
 - **N-03** · MVP · El motor no tiene dependencias externas. Se prueba con `node --test`.
 - **N-04** · MVP · Accesibilidad básica: todo se puede hacer con teclado, con etiquetas `aria` en el tablero y los botones.
-- **N-05** · MVP · Idioma de la interfaz: ver P1.
-- **N-06** · MVP · El aspecto visual sigue el artefacto de diseño.
+- **N-05** · MVP · Interfaz en **español e inglés**, con el selector de idioma del sistema de diseño.
+  - Orden de decisión: parámetro `?lang=`, última elección guardada y, si no hay ninguna, idioma del navegador (español si empieza por `es`; inglés en otro caso).
+  - Los textos fijos se marcan con `data-i18n`; las explicaciones de las pistas se construyen en los dos idiomas.
+- **N-06** · MVP · El aspecto visual sigue el **sistema común de diseño** de taridepaco:
+  - `system.css` y `theme.js` se copian sin modificar;
+  - cabecera de proyecto con vuelta a la portada, botón de tema (auto, claro, oscuro) e idioma;
+  - página tipo simulador: panel de controles a la izquierda en escritorio, y hoja plegable con barra de mandos en móvil.
 - **N-07** · Opcional · Uso sin conexión como PWA.
 - **N-08** · MVP · El script Python (`sudoku_main.py` y `sudoku.csv`) se conserva tal cual, como recuerdo. La web no lo usa.
 
@@ -322,14 +318,7 @@ Está escrito en JavaScript, para que funcione en GitHub Pages, y parte de las i
 
 ## 9. Decisiones abiertas
 
-### P1 · Idioma
-
-- **Opciones:**
-  - (a) Español.
-  - (b) Inglés.
-  - (c) Ambos, con selector.
-- **Propuesta:** (a), con los textos centralizados para poder añadir (c) más adelante.
-- **Decisión:** _pendiente_
+Ninguna por ahora.
 
 ---
 
@@ -399,7 +388,6 @@ sudoku.csv
    - estadísticas (D-04).
 5. **Opcionales:**
    - técnicas T7–T8;
-   - simetría (G-08);
    - recámara (G-07);
    - barra numérica en escritorio (J-16);
    - PWA (N-07).
